@@ -28,6 +28,11 @@ namespace MASIV_TEST_ROULETTE.Services
             return roulette;
         }
 
+        public Roulette Find(string Id)
+        {
+            return rouletteRepository.GetById(Id);
+        }
+
         public Roulette Open(string Id)
         {
             Roulette roulette = rouletteRepository.GetById(Id);
@@ -42,6 +47,22 @@ namespace MASIV_TEST_ROULETTE.Services
             }
             roulette.OpenedAt = DateTime.Now;
             roulette.IsOpen = true;
+            return rouletteRepository.Update(Id, roulette);
+        }
+
+        public Roulette Close(string Id)
+        {
+            Roulette roulette = rouletteRepository.GetById(Id);
+            if (roulette == null)
+            {
+                throw new RouletteNotFound();
+            }
+            if (roulette.ClosedAt != null)
+            {
+                throw new NotAllowedClosedException();
+            }
+            roulette.ClosedAt = DateTime.Now;
+            roulette.IsOpen = false;
             return rouletteRepository.Update(Id, roulette);
         }
 

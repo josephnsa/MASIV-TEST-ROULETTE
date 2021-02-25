@@ -53,7 +53,26 @@ namespace MASIV_TEST_ROULETTE.Controllers
                 return StatusCode(405);
             }
         }
-
+        
+        /// <summary>
+        /// Closes bets on a rulette
+        /// </summary>
+        /// <param name="id"> rulette id</param>
+        /// <returns></returns>
+        [HttpPut("{id}/close")]
+        public IActionResult Close([FromRoute(Name = "id")] string id)
+        {
+            try
+            {
+                Roulette roulette = rouletteService.Close(id);
+                return Ok(roulette);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return StatusCode(405);
+            }
+        }
         
         /// <summary>
         /// It lets make a bet between [0.5 and 10000, red or black]
