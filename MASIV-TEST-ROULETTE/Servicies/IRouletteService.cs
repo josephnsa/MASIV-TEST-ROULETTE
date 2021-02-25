@@ -7,5 +7,11 @@ namespace MASIV_TEST_ROULETTE.Services
     {
         public Roulette create();
 
+  
+
+        public Roulette Open(string Id);
+        public Roulette Bet(string Id, string UserId, int position, double money);
+
+        public List<Roulette> GetAll();
     }
 }
